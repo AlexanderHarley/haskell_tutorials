@@ -77,6 +77,7 @@ flip'' f y x = f x y
 -- map (replicate 3) [3..6]
 -- [[3,3,3],[4,4,4],[5,5,5],[6,6,6]]
 
+-- Note: Filter doesn't work on infinite lists. takeWhile does.
 
 -- filter (>3) [1,5,3,2,1,6,4,3,2,1]
 -- [5,6,4]
@@ -134,7 +135,7 @@ numLongChains = length (filter isLong (map chain [1..100]))
 
 -- The \ symbol is used to make a lambda (because it looks slightly like the greek lambda sign)
 -- The parameters are then entered, seperated by spaces
--- Finally a -> and then the function body
+-- Finally -> and then the function body
 -- They are usually surrounded by ( ) because otherwise they extend all the way to the right
 
 -- Can be used to simplify the function above:
@@ -162,6 +163,10 @@ numLongChains = length (filter (\xs -> length xs > 15) (map chain [1..100]))
 
 flip' :: (a -> b -> c) -> b -> a -> c
 flip' f = \x y -> f y x
+
+-- ==============
+-- Fold
+-- ==============
 
 -- foldl and foldr eat up values from the left or right of a list
 -- they take an accumulator and a current value
@@ -207,7 +212,62 @@ map'' f xs = foldl (\acc x -> acc ++ [f x]) [] xs
 -- One big difference is that right folds work on infinite lists -- left folds don't!
 
 -- foldl1 and foldr1 functions work like foldl and foldr, but you don't need to provide them with an explicit starting value
--- They assume the first (or last) element of the list to be the starting value, then start the fold witht he element next to it
+-- They assume the first (or last if foldl1) element of the list to be the starting value, then start the fold with the element next to it
 -- The sum function can be implemented like:
 sum''' :: (Num a) => [a] -> a
 sum''' = foldl1 (+)
+
+maximum' :: (Ord a) => [a] -> a
+maximum' = foldr1 (\x acc -> if x > acc then x else acc)
+
+-- ==============
+-- Scan
+-- ==============
+
+-- scanl and scanr are like foldl and foldr, only they report all the accumulator states in the form of a list.
+-- e.g.
+-- foldl (+) 0 [3,5,2,1]
+-- 11
+
+-- scanl (+) 0 [3,5,2,1]
+-- [0,3,8,10,11]
+-- http://s3.amazonaws.com/lyah/foldl.png
+
+-- scanr (+) 0 [3,5,2,1]
+-- [11,8,3,1,0]
+
+-- scanl1 (\acc x -> if x > acc then x else acc) [3,4,5,3,7,9,2,1]
+-- [3,4,5,5,7,9,9,9]
+
+-- scanl (flip (:)) [] [3,2,1]
+-- [[],[3],[2,3],[1,2,3]]
+
+-- When using a scanl, the final result will be in the last element of the resulting list.
+-- When using a scanr, the final result will place the result in the head.
+
+-- Scans are used to monitor the progression of a function taht can be implemented as a fold.
+
+-- ==============
+-- $ Function
+-- ==============
+-- Function application with a space is left associative [so f a b c is the same as ((fa) b) c) .]
+-- Most of the time it's a convenience function so don't have to write so many parentheses.
+-- When a $ is encountered, the expression on it's right is applied as the paramter to the function on it's left.
+
+-- sum (map sqrt [1..130])
+-- can be rewritten as:
+-- sum $ map sqrt [1..130]
+
+-- sqrt (3 + 4 + 9)
+-- can be rewritten as:
+-- sqrt $ 3 + 4 + 9
+
+-- $ sort of the the equivalent of writing an open parenthese and a closing one on the far right of the expression
+-- sum (filter (> 10) (map (*2) [2..10]))
+-- can be rewritten as:
+-- sum $ filter (> 10) $ map (*2) [2..10]
+
+-- Using $ means the function application can be treated just like another function.
+-- This means you can map function application over a list of cuntions
+-- map ($ 3) [(4+), (10*), (^2), sqrt]
+-- [7.0,30.0,9.0,1.7320508075688772]
