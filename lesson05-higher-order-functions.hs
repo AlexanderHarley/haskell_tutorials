@@ -268,6 +268,83 @@ maximum' = foldr1 (\x acc -> if x > acc then x else acc)
 -- sum $ filter (> 10) $ map (*2) [2..10]
 
 -- Using $ means the function application can be treated just like another function.
--- This means you can map function application over a list of cuntions
+-- This means you can map function application over a list of functions
 -- map ($ 3) [(4+), (10*), (^2), sqrt]
 -- [7.0,30.0,9.0,1.7320508075688772]
+
+-- ==============
+-- . Function Composition
+-- ==============
+-- Function Composition can be used to make functions on the fly and pass them to other functions.
+-- Can use lambdas, but many times function composition is clearer and more concise.
+
+-- map (\x -> negate (abs x)) [5,-3,-6,7,-3,2,-19,24]
+-- [-5,-3,-6,-7,-3,-2,-19,-24]
+
+-- Can be rewritten as:
+
+-- map (negate . abs) [5,-3,-6,7,-3,2,-19,24]
+-- [-5,-3,-6,-7,-3,-2,-19,-24]
+
+-- Function Composition is right-associative, so many functions can be composed at a time.
+-- The expression f (g (z x)) is equivalent to (f . g . z) x.
+
+-- map (\xs -> negate (sum (tail xs))) [[1..5],[3..6],[1..7]]
+-- [-14,-15,-27]
+
+-- Can be rewritten as:
+
+-- map (negate . sum . tail) [[1..5],[3..6],[1..7]]
+-- [-14,-15,-27]
+
+-- Function Composition takes one parameter, so if a function has multiple parameters they usually have to be partially applied.
+-- sum (replicate 5 (max 6.7 8.9))
+-- Can be rewritten as:
+-- (sum . replicate 5 . max 6.7) 8.9
+-- Or as:
+-- sum . replicate 5 . max 6.7 $ 8.9
+-- 44.5
+
+-- What goes on is:
+-- A function is created that takes what max 6.7 takes and applies replicate 5 to it.
+-- Then a function is created that takes the result of that does a sum on it.
+-- Finally, that function is called with 8.9.
+
+-- But normally you can read it as:
+-- Apply 8.9 to max 6.7, then apply replicate 5 to that, then apply sum to that.
+-- Returning 44.5
+
+-- replicate 100 (product (map (*3) (zipWith max [1,2,3,4,5] [4,5,6,7,8])))
+-- Can be rewritten as:
+-- replicate 100 . product . map (*3) . zipWith max [1,2,3,4,5] $ [4,5,6,7,8]
+
+-- Chances are if the expression ends with 3 parentheses, you can translate it into 3 function composition operators.
+
+
+-- Another common use of function composition is 'point free style'.
+-- This function can be rewritten using point free style:
+sum'''' :: (Num a) => [a] -> a
+sum'''' xs = foldl (+) 0 xs
+-- can be rewritten as:
+sum'''' :: (Num a) => [a] -> a
+sum'''' = foldl (+) 0
+-- Because of currying, we can omit the xs on both sides, because calling foldl (+) 0 creates a function that takes a list.
+-- Writing the function this way is called 'point free style'.
+
+-- fn x = ceiling (negate (tan (cos (max 50 x))))
+-- Can be rewritten as:
+-- fn = ceiling . negate . tan . cos . max 50
+
+-- 3 different ways of writing the oddSquareSum function:
+
+oddSquareSum :: Integer
+oddSquareSum = sum (takeWhile (<10000) (filter odd (map (^2) [1..])))
+
+oddSquareSum' :: Integer
+oddSquareSum' = sum . takeWhile (<10000) . filter odd . map (^2) $ [1..]
+
+oddSquareSum'' :: Integer
+oddSquareSum'' =
+    let oddSquares = filter odd $ map (^2) [1..]
+        belowLimit = takeWhile (<10000) oddSquares
+    in  sum belowLimit
