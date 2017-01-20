@@ -221,6 +221,19 @@ maximum' :: (Ord a) => [a] -> a
 maximum' = foldr1 (\x acc -> if x > acc then x else acc)
 
 -- ==============
+-- Strict Folds
+-- ==============
+
+-- foldl' and foldl1' are strict versions of their respective lazy equivalents.
+
+-- Normally the stack gets filled with 'thunks' where the accumulator value isn't actually updated,
+-- but creates a kind of 'promise' that it will compute its value when asked to produce the result.
+-- With lazy evaluation this happens with every intermediate accumulator and all those thunks can overflow your stack.
+
+-- The strict folds actualy compute the intermediate values as they go along instead of filling up your stack with thunks.
+-- If ever get a stack overflow error, try switching to strict folds.
+
+-- ==============
 -- Scan
 -- ==============
 
@@ -252,7 +265,7 @@ maximum' = foldr1 (\x acc -> if x > acc then x else acc)
 -- ==============
 -- Function application with a space is left associative [so f a b c is the same as ((fa) b) c) .]
 -- Most of the time it's a convenience function so don't have to write so many parentheses.
--- When a $ is encountered, the expression on it's right is applied as the paramter to the function on it's left.
+-- When a $ is encountered, the expression on it's right is applied as the parameter to the function on it's left.
 
 -- sum (map sqrt [1..130])
 -- can be rewritten as:
