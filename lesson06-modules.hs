@@ -61,3 +61,17 @@ or $ map (==4) [4,4,4,3,4]
 -- True
 or $ map (>4) [1,2,3]
 -- False
+
+-- 'all' and 'any' are the same as 'and' and 'or' respectively, only they take a predicate.
+-- This saves mapping over a list with 'and' or 'or'.
+all (==4) [4,4,4,3,4]
+-- False
+any (==4) [4,4,4,3,4]
+-- True
+
+-- iterate takes a function and a starting value. It applies the function to the starting value, then to the result etc.
+-- It returns all the results in the form of an infinite list.
+take 10 $ iterate (*2) 1
+-- [1,2,4,8,16,32,64,128,256,512]
+take 3 $ iterate (++ "haha") "haha"
+-- ["haha","hahahaha","hahahahahaha"]
