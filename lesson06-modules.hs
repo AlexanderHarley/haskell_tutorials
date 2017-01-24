@@ -75,3 +75,6 @@ take 10 $ iterate (*2) 1
 -- [1,2,4,8,16,32,64,128,256,512]
 take 3 $ iterate (++ "haha") "haha"
 -- ["haha","hahahaha","hahahahahaha"]
+
+
+-- TBC: Continue looking at Data.List and look into Data.Char
