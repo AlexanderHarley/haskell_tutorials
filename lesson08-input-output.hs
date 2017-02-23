@@ -42,7 +42,7 @@ main = do
 -- name <- getLine
 -- ========
 -- This can be read as 'perform the I/O action getLine and then bind its result value to name'
--- getLine has a type of IO String, so name wil have a type of String.
+-- getLine has a type of IO String, so name will have a type of String.
 
 -- The I/O action can be thought of as a box with feet that goes out and maybe brings back some data.
 -- Once it's fetched that data, the only way to open the box is the use the <- construct.
