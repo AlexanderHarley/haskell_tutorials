@@ -20,6 +20,8 @@
 -- Main
 -- ========
 -- An I/O action will be performed when we give it a name of main and then run the program.
+-- A do block can be used to glue together I/O actions, and that I/O action can be used in another do block etc.
+-- However, they'll only be performed if they eventually fall into main.
 
 -- For example:
 -- main = do
@@ -53,3 +55,12 @@ main = do
 -- getLine is in a sense impure because its result value is not guaranteed to be the same when performed twice.
 -- When we do 'name <- getLine', name is just a normal String, and can be used as a normal String with other functions
 
+-- If you tried to do:
+-- $ nameTag = "Hello, my name is " ++ getLine
+-- This would result in an error because the ++ function requires both its parameters to be lists over the same type.
+-- In this instance, "Hello, my name is" would be of type String (or [Char]) and getLine has a type of IO String.
+
+-- In a do block, the last action CANNOT be bound to a name.
+-- Except for the last line, every line in a do block can also be written with a bind.
+-- So putStrLn "BLAH" can be written as _ <- putStrLn "BLAH".
+-- But that's useless, so we leave out the <- for I/O actions that don't contain an important result.
