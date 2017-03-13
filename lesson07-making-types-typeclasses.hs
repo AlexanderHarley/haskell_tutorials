@@ -64,3 +64,27 @@ surface (Circle (Point _ _) r) = pi * r ^ 2
 
 surface $ Circle (Point 0 0) 24
 -- 1809.5574
+
+-- ==============================
+-- Exporting Data Types/Functions
+-- ==============================
+-- At the top of the file:
+ module Shapes
+    ( Point(..),
+      Shape(..),
+      surface
+    ) where
+    -- // body of file
+
+-- By doing Shape(..) we exported all the value constructors for Shape.
+-- When importing the Shapes module, we have access to Rectangle and Circle.
+-- Shape(..) is the same as doing Shape(Rectangle, Circle).
+
+-- For example:
+
+-- module Tests ( Test(..) ) where
+-- data Test = Circle Float Float deriving (Show)
+
+-- Loading into GHCi gives this result:
+-- :t Circle
+-- Circle :: Float -> Float -> Test
