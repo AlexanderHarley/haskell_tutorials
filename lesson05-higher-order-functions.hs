@@ -230,8 +230,8 @@ maximum' = foldr1 (\x acc -> if x > acc then x else acc)
 -- but creates a kind of 'promise' that it will compute its value when asked to produce the result.
 -- With lazy evaluation this happens with every intermediate accumulator and all those thunks can overflow your stack.
 
--- The strict folds actualy compute the intermediate values as they go along instead of filling up your stack with thunks.
--- If ever get a stack overflow error, try switching to strict folds.
+-- The strict folds actually compute the intermediate values as they go along instead of filling up your stack with thunks.
+-- If ever getting a stack overflow error, try switching to strict folds.
 
 -- ==============
 -- Scan

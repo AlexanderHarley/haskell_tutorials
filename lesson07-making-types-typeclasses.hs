@@ -88,3 +88,53 @@ surface $ Circle (Point 0 0) 24
 -- Loading into GHCi gives this result:
 -- :t Circle
 -- Circle :: Float -> Float -> Test
+
+-- ==============================
+-- Record Syntax
+-- ==============================
+
+-- Creating a data type that describes a person:
+-- First Name, Last Name, Age, Height, Phone Number and Favourite Ice-Cream Flavour
+data Person = Person String String Int Float String String deriving (Show)
+person1 = Person "Haskell" "Guru" 30 184.2 "07770070070" "Strawberry"
+
+-- Create some functions to retrieve details of that person in a more readable format:
+firstName :: Person -> String
+firstName (Person x _ _ _ _ _) = x
+
+lastName :: Person -> String
+lastName (Person _ x _ _ _ _) = x
+
+age :: Person -> Int
+age (Person _ _ x _ _ _) = x
+
+height :: Person -> Float
+height (Person _ _ _ x _ _) = x
+
+phoneNumber :: Person -> String
+phoneNumber (Person _ _ _ _ x _) = x
+
+flavour :: Person -> String
+flavour (Person _ _ _ _ _ x) = x
+
+firstName person1 ++ " " ++ lastName person1
+-- "Haskell Guru"
+
+flavour person1
+-- "Strawberry"
+
+
+-- The above works, but there is a better way to write it - With the record syntax.
+data Person = Person {
+    firstName :: String,
+    lastName :: String,
+    age :: Int,
+    height :: Float,
+    phoneNumber :: String,
+    flavour :: String
+} deriving (Show)
+
+-- By using record syntax, Haskell automatically makes the functions for firstName, lastName etc.
+-- This can be demonstrated by:
+:t flavour
+-- flavour :: Person -> String
