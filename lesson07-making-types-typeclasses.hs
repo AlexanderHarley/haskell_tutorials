@@ -138,3 +138,66 @@ data Person = Person {
 -- This can be demonstrated by:
 :t flavour
 -- flavour :: Person -> String
+
+-- Using record syntax you don't have to necessarily put the fields in the proper order, as long as they are all listed.
+-- If you don't use record syntax, they have to be specified in order.
+
+-- ===================================
+-- Type parameters / Type constructors
+-- ===================================
+-- A value constructor can take some values parameters and then produce a new value.
+-- A type constructor can take types as parameters to produce new types.
+
+-- For example, Maybe is implemented like this:
+data Maybe a = Nothing | Just a
+
+-- The `a` here is the type parameter. Because there's a type parameter involved, we call Maybe a type constructor.
+-- Depending on what's passed to the type constructor, this could end up producing a type of `Maybe Int`, `Maybe String` etc.
+
+-- Passing the value `Just 'a'` has a type of `Maybe Char`.
+-- Here's some example of using the Maybe type:
+
+Just "Haha"
+-- Just "Haha"
+
+Just 84
+-- Just 84
+
+:t Just "Haha"
+-- Just "Haha" :: Maybe [Char]
+
+:t Just 84
+-- Just 84 :: (Num t) => Maybe t
+
+:t Nothing
+-- Nothing :: Maybe a
+
+Just 10 :: Maybe Double
+-- Just 10.0
+
+-- Type parameters are useful because different types can be made with them depending on what kind of types we want contained in our data type.
+-- When doing `Just "Haha"`, the type inference engine figures it out to be type `Maybe [Char]`.
+-- If `a` in `Just a` is a string, then the `a` in `Maybe a` must also be a string.
+
+-- Note: The type of `Nothing` is `Maybe a` - it's type is polymorphic.
+
+-- Here is an example of a data type without Type Constructors:
+data Car = Car {
+    company :: String,
+    model :: String,
+    year :: Int
+} deriving (Show)
+
+-- And the same example with Type Constructors:
+data Car a b c = Car {
+    company :: a,
+    model :: b,
+    year :: c
+} deriving (Show)
+
+-- While Type Parameters aren't really that useful in the example above, it can be useful in circumstances where we don't care about the data type's value constructors.
+-- For example: `Maybe` represents an option of either having nothing or having one of something. The type doesn't matter in that context.
+
+-- Another good example of where Type Parameters are useful is with `Map k v` from `Data.Map`.
+-- The `k` is the type of the keys. The `v` is the type of the values.
+-- Having maps parameterized enables us to have mappings from any type to any other type as long as the type of the key is part of the `Ord` typeclass.
