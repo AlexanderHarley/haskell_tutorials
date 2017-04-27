@@ -7,12 +7,12 @@ main = do
 
     secretNumber <- getRandomNumber
     -- putStrLn $ "Your secret number is: " ++ show (head secretNumber)
-    guessLogic $ head secretNumber
+    guessLogic secretNumber
 
-getRandomNumber :: IO [Int]
+getRandomNumber :: IO Int
 getRandomNumber = do
     randomNumber <- getStdGen
-    return $ take 1 $ randomRs (1, 100) randomNumber
+    return $ head $ randomRs (1, 100) randomNumber
 
 guessLogic :: Int -> IO ()
 guessLogic secret = do
