@@ -1,5 +1,5 @@
-import System.Random
-import Control.Monad
+import System.Random (getStdGen, randomRs)
+import Control.Monad (when)
 
 main :: IO ()
 main = do
@@ -17,10 +17,10 @@ getRandomNumber = do
 guessLogic :: Int -> IO ()
 guessLogic secret = do
     putStrLn "Please input your guess."
-    guess <- getLine
-    putStrLn $ "You guessed: " ++ guess
-    putStrLn $ checkNumber (read guess :: Int) secret
-    when ((read guess :: Int) /= secret) $ guessLogic secret
+    guess <- readLn
+    putStrLn $ "You guessed: " ++ show guess
+    putStrLn $ checkNumber guess secret
+    when (guess /= secret) $ guessLogic secret
 
 checkNumber :: Int -> Int -> String
 checkNumber x y
