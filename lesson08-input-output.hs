@@ -1,10 +1,12 @@
+-- Note: This file won't compile.
+
 -- To compile a Haskell program using GHC you use the command:
 -- ghc --make filename
 
 -- To compile output to a different folder:
 -- ghc --make -o build/sample.exe src/sample.hs
 
--- main = putStrLn "hello, world"
+main = putStrLn "hello, world"
 
 -- putStrLn has a type of:
 -- putStrLn :: String -> IO ()
@@ -24,10 +26,10 @@
 -- However, they'll only be performed if they eventually fall into main.
 
 -- For example:
--- main = do
---     putStrLn "Hello, what's your name?"
---     name <- getLine
---     putStrLn ("Hey " ++ name ++ ", welcome!")
+main = do
+    putStrLn "Hello, what's your name?"
+    name <- getLine
+    putStrLn ("Hey " ++ name ++ ", welcome!")
 
 -- By using the do syntax you can glue commands together into one I/O action.
 -- The action produced as a type of IO (), because that's the tpye of the last I/O action inside.
@@ -64,3 +66,32 @@ main = do
 -- Except for the last line, every line in a do block can also be written with a bind.
 -- So putStrLn "BLAH" can be written as _ <- putStrLn "BLAH".
 -- But that's useless, so we leave out the <- for I/O actions that don't contain an important result.
+
+
+-- This program will continuously read a line and print out the same line with the words reversed.
+-- The program's execution will stop when we input a blank line.
+
+main = do
+    line <- getLine
+    if null line
+        then return ()
+        else do
+            putStrLn $ reverseWords line
+            main
+
+reverseWords :: String -> String
+reverseWords = unwords . map reverse . words
+
+-- The reverse words function could also be written as:
+reverseWords' :: String -> String
+reverseWords' str = unwords (map reverse (words str)).
+
+-- reverseWords takes a String as a parameter, such as "Hello World".
+-- It then calls `words` on the String to produce a list of words, such as ["Hello", "World"].
+-- `reverse` is then mapped on the list, producing ["olleH", "dlroW"].
+-- That is then passed to `unwords` which takes the list and returns "olleH dlroW".
+
+-- By using Function Composition `.`, reverseWords' can be shortened to be readable and terse.
+-- reverseWords could also be written as:
+reverseWords'' :: String -> String
+reverseWords'' str = unwords $ map reverse $ words str
