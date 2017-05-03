@@ -201,3 +201,70 @@ data Car a b c = Car {
 -- Another good example of where Type Parameters are useful is with `Map k v` from `Data.Map`.
 -- The `k` is the type of the keys. The `v` is the type of the values.
 -- Having maps parameterized enables us to have mappings from any type to any other type as long as the type of the key is part of the `Ord` typeclass.
+
+
+-- ===================================
+-- The Functor typeclass
+-- ===================================
+
+class Functor f where
+    fmap :: (a -> b) -> f a -> f b
+
+-- fmap is interesting because `f` is not a concrete type (a type that a value can hold, e.g. Int, Bool, or Maybe String).
+-- In fmap, `f` is type constructor that takes 1 parameter.
+
+-- `Maybe Int` is a concrete type.
+-- `Maybe` is a type constructor that takes one type as a parameter.
+
+-- fmap takes a function from one type to another, and a functor applied with one type, and returns a functor applied with another type.
+
+-- This is easier to think about when you look at the type signature for `map`:
+map :: (a -> b) -> [a] -> [b]
+
+-- So `map` takes a function from one type to another, and a list of one type and returns a list of another type.
+-- Essentially, map is just a fmap that works only on lists.
+-- Here's how the list is an instance of the Functor typeclass:
+instance Functor [] where
+    fmap = map
+
+-- [] is a type constructor that takes one type and can produce types such as [Int], [String], or even [[String]].
+-- If we were to write [a], this would be a concrete type (of a list with any type inside it), and wouldn't work as f has to be a type constructor.
+
+-- Since for lists, fmap is just map, we get the same results when using them on lists:
+fmap (*2) [1..3]
+-- [2,4,6]
+map (*2) [1..3]
+-- [2,4,6]
+
+-- If map or fmap was used over an empty list, it would return an empty list, because it turns an empty list of type [a] to an empty list of type [b].
+
+-- Here's how Maybe is a functor
+instance Functor Maybe where
+    fmap f (Just x) = Just (f x)
+    fmap f Nothing = Nothing
+
+-- Note how again this is written as `instance Functor Maybe where` instead of for example: `instance Functor (Maybe m) where`.
+-- This is for the same reason as above, Functor wants a type constructor that takes one type and not a concrete type.
+-- With `instance Functor Maybe where`, the type signature of fmap acts like `(a -> b) -> Maybe a -> Maybe b`.
+-- But with `instance Functor (Maybe m) where`, the type signature of fmap acts like `(a -> b) -> Maybe m a -> Maybe m b`, which doesn't make sense because Maybe takes just one type parameter.
+
+-- The fmap implementation is fairly simple:
+-- If it's an empty value of Nothing, then just return Nothing.
+-- If it's not an empty value, but rather a single value packed up in a Just, then we apply the function on the contents of Just.
+
+fmap (++ " Ho!") (Just "Hi!")
+-- Just "Hi! Ho!"
+fmap (++ " Ho!") Nothing
+-- Nothing
+fmap (*2) (Just 200)
+-- Just 400
+
+
+-- Either takes two parameters (e.g. Either a b), but can be made a Functor by partially applying Either.
+-- Here's how `Either a` is a functor in the standard libraries:
+instance Functor (Either a) where
+    fmap f (Right x) = Right (f x)
+    fmap f (Left x) = Left x
+
+-- `Either a` is a type constructor that takes one parameter, whereas `Either` takes two.
+-- If type signature for fmap acts like `(b -> c) -> Either a b -> Either a c`
