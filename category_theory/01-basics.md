@@ -8,6 +8,9 @@ It also contains `morphisms` (also referred to as `arrows`) that goes between tw
 - **Abstraction**
 - **Composition**
 - **Identity**
+- **Associativity**
+
+The 3 laws of Category Theory are **Composition**, **Identity** (left & right) and **Associativity**
 
 ### Abstraction
 
@@ -72,7 +75,9 @@ a ---------> b --------> b
       f          id b
 ```
 
-If you were to compose arrow `f` with arrow `id b`, you would get back arrow `f`. In a sense this can be thought of as an identity. In the multiplication example, in terms of composition, `id` can be thought of as a 1. **id<sub>b</sub> ∘ f = f**
+If you were to compose arrow `f` with arrow `id b`, you would get back arrow `f`. In a sense this can be thought of as an identity. In the multiplication example, in terms of composition, `id` can be thought of as a 1.
+
+**id<sub>b</sub> ∘ f = f**
 
 **id<sub>b</sub> ∘ f** is a morphism, **f** is a morphism, and they are both equal.
 
@@ -83,4 +88,47 @@ a ---------> a ---------> b
     id a           g
 ```
 
-**g ∘ id<sub>b</sub> = g**. `g` after `id b` is equal to `g`.
+**g ∘ id<sub>a</sub> = g**. `g` after `id a` is equal to `g`.
+
+_Note: These are not the same. One is the left identity, one is the right identity._
+
+### Associativity
+
+If we were to have three arrows:
+
+```
+a -----> b -----> c -----> d
+    f        g        h
+```
+
+We could them compose these to have:
+
+```
+a -----> b -----> c -----> d
+    f        g        h
+
+a --------------> c
+       g ∘ f
+
+a -----------------------> d
+        h ∘ (g ∘ f)
+```
+
+We could also compose `g` with `h` first:
+
+```
+a -----> b -----> c -----> d
+    f        g        h
+
+         b --------------> d
+                h ∘ g
+
+a -----------------------> d
+        (h ∘ g) ∘ f
+```
+
+The difference between these is the parenthesis. If we were to have to remember where to put the parenthesis on each diagram, it would become extremely complex. The axiom of category theory is that these two expressions are the same.
+
+**h ∘ (g ∘ f) = (h ∘ g) ∘ f**
+
+This is known as associativity. Associativity is important for this to be managable. A category has to have associativity.
