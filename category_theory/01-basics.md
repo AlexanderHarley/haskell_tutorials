@@ -10,7 +10,7 @@ It also contains `morphisms` (also referred to as `arrows`) that goes between tw
 - **Identity**
 - **Associativity**
 
-The 3 laws of Category Theory are **Composition**, **Identity** (left & right) and **Associativity**
+The 3 laws of categories are **Composition**, **Identity** (left & right) and **Associativity**
 
 ### Abstraction
 
