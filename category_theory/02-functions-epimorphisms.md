@@ -104,6 +104,35 @@ If we were to look at the opposite of this, where if the image is equal to the w
 
 **injective** and **surjective** comes from Latin, but in category theory, this is often referred to by the Greek terminology. So instead of **sur**, we would refer to it as **epi**, so something **surjective** would be **epic**. Likewise, **injective** would be **monic**.
 
-An **injective** morphism is also known as a **monomorphism**, and a **surjective** morphism is also known as an **epimorphism**.
+In set theory, an **injective** morphism is also known as a **monomorphism**, and a **surjective** morphism is also known as an **epimorphism**. But **monomorphisms** and **epimorphisms** are defined in any category, so are much more general.
 
-If we were to think of a category with types and functions.
+So how would we define an **epimorphism** in terms of categorical language?
+
+If we were to look at a category of sets again, with the same sets `s1` and `s2` as before, with the **image** of `s2` not filling the entire **codomain**, leaving a terra incognita in the **codomain** of `s2`. If we were to introduce a third set called `s3` that the terra incognita of `s2` mapped to, it would look something like this:
+
+```
+s1 x ------------> s2 y ------------> s3 z
+          f                   g
+
+                   s2 a ------------> s3 b
+                             g1
+
+                   s2 a ------------> s3 c
+                             g2
+```
+
+If we were to compose `f` with `g`, `g ∘ f`, we would always bypass the terra incognita of the **codomain**, as it would have to go through the **image**. This composition would therefore never interact with `s2 a`, or `s3 b` and `s3 c`.
+
+So we have morphisms `g1` and `g2`, which in this specific category are functions. Because `g1` and `g2` are both functions that begin at the same element, `s2 a`, but produce two different elements, `s3 b` and `s3 c`. For this reason, as the same point is mapped to two different points, `g1` and `g2` _must_ be different functions.
+
+But if they only differ outside the **image**, in this terra incognita, then the composition with `f` would be the same. So the composition `g1 ∘ f` will be the same as `g2 ∘ f`, even though `g1` is different from `g2`.
+
+`g1 ∘ f = g2 ∘ f` &rArr; `g1 = g2`
+
+So the converse of this, if for any object `c`, and any pair of functions (e.g. `g1` and `g2`) that go from `b` to `c`. If `g1 ∘ f = g2 ∘ f`, then `g1` must equal `g2`. If this is true, then the function is **surjective**. This is expressed now in categorical terms.
+
+```haskell
+∀c.∀g1.g2 :: b -> c
+```
+
+We have to essentially look at the whole category, the whole "universe", to define this one property of `f`.
