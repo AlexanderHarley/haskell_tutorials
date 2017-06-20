@@ -1,4 +1,4 @@
-# Category Theory
+# Category Theory [2.1]
 
 ## Functions and Epimorphisms
 Functions are defined in mathematics as special kinds of relations. A relation is just a sub-set of pairs of elements.
@@ -106,6 +106,8 @@ If we were to look at the opposite of this, where if the image is equal to the w
 
 In set theory, an **injective** morphism is also known as a **monomorphism**, and a **surjective** morphism is also known as an **epimorphism**. But **monomorphisms** and **epimorphisms** are defined in any category, so are much more general.
 
+## Epimorphisms
+
 So how would we define an **epimorphism** in terms of categorical language?
 
 If we were to look at a category of sets again, with the same sets `s1` and `s2` as before, with the **image** of `s2` not filling the entire **codomain**, leaving a terra incognita in the **codomain** of `s2`. If we were to introduce a third set called `s3` that the terra incognita of `s2` mapped to, it would look something like this:
@@ -132,7 +134,7 @@ But if they only differ outside the **image**, in this terra incognita, then the
 So the converse of this, if for any object `c`, and any pair of functions (e.g. `g1` and `g2`) that go from `b` to `c`. If `g1 ∘ f = g2 ∘ f`, then `g1` must equal `g2`. If this is true, then the function is **surjective**. This is expressed now in categorical terms.
 
 ```haskell
-∀c.∀g1.g2 :: b -> c
+∀c.∀g1.g2 :: b -> c.g1∘f=.g2∘f
 ```
 
 We have to essentially look at the whole category, the whole "universe", to define this one property of `f`.

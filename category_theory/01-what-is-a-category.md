@@ -1,4 +1,4 @@
-# Category Theory - Basics
+# Category Theory [1.2] - Basics
 
 ## What is a category?
 A category can be thought of as a `bunch` of objects. It is also sometimes referred to as a `class` of objects.
