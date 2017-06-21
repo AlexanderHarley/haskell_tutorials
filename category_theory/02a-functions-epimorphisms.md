@@ -134,7 +134,7 @@ But if they only differ outside the **image**, in this terra incognita, then the
 So the converse of this, if for any object `c`, and any pair of functions (e.g. `g1` and `g2`) that go from `b` to `c`. If `g1 ∘ f = g2 ∘ f`, then `g1` must equal `g2`. If this is true, then the function is **surjective**. This is expressed now in categorical terms.
 
 ```haskell
-∀c.∀g1.g2 :: b -> c.g1∘f=.g2∘f
+∀c . ∀g1 , g2 :: b -> c . g1 ∘ f = g2 ∘ f
 ```
 
 We have to essentially look at the whole category, the whole "universe", to define this one property of `f`.
