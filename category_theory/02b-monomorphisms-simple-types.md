@@ -102,3 +102,11 @@ So we can say, in Set we have this family of morphisms from Unit (if we can defi
 Essentially this is a morphism from any Singleton Set to any other Set (or Type, Object etc.).
 
 _Note: An object like () does not always exist in every category_
+
+**`Void and Unit` derive the basis for the other types.**
+
+### 2-element Set
+
+A type with two elements is always just equivalnet to `Boolean`. Boolean is not an atomic construction in Set theory, but can be defind as a sum or two `Units`.
+
+A function that returns a Boolean is called a predicate.
