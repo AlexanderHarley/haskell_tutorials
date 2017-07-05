@@ -184,3 +184,5 @@ m ------> m
 ```
 
 There is only one homset, `M(m, m)`. This is a Set of arrows that goes from `m` to `m`. There is only one homset, as there is only object. This is a sort of reflexive homset.
+
+This homset is a Set, so we have a Category and a Set - This Category defines a Set. You take any 2 elements in this Set and they correspond to arrows, but there is a 3rd element in this Set.
