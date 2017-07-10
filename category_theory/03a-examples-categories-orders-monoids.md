@@ -185,4 +185,24 @@ m ------> m
 
 There is only one homset, `M(m, m)`. This is a Set of arrows that goes from `m` to `m`. There is only one homset, as there is only object. This is a sort of reflexive homset.
 
-This homset is a Set, so we have a Category and a Set - This Category defines a Set. You take any 2 elements in this Set and they correspond to arrows, but there is a 3rd element in this Set.
+This homset is a Set, so we have a Category and a Set - This Category defines a Set. You take any 2 elements in this Set and they correspond to two arrows, but there is a 3rd element in this Set that corresponds to the _composition_ of these two arrows.
+
+```
+    id
+m ------> m
+
+     f
+m ------> m
+
+     g
+m ------> m
+
+   g ∘ f
+m ------> m
+```
+
+So because we have `f` and `g`, and because these two arrows have to be composable (the end of one is the beginning of the next), then there must be a third arrow which is a composition of these two arrows, `g ∘ f`.
+
+So in relation to programming, a category of types corresponds to a system that is strongly typed - This means you cannot compose any two functions, they have to **match**. The result of one function has to have a type that is the same as the argument to the next function.
+
+A Monoid is a special category in which any two functions are composable. This corresponds to the languages which have weak types (or no types). There is really no distinction between weak and strong typing in the sense that weak typing is inside strong typing - you just pick your category as a trivial category, which has only one object (one type). Then any function can be composed with any function. If this is good or not is at the reader's discretion.
