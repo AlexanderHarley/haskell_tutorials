@@ -44,7 +44,7 @@ bool negate(bool x) {
 /* more functions */
 ```
 
-One day our manager comes along and says that there's a new requirement where every function must now be logged in the application, and it must be implemented in the simplest way possible. He suggests implementing a global log for each function. Although a contrived example as this would normally be logged in a database instead of appending a string, this more generally refers to any mutable state in the application.
+One day our manager comes along and says that there's a new requirement where every function must now be logged in the application, and it must be implemented in the simplest way possible. He suggests implementing a global log for each function. Although a contrived example as this would normally be logged in a database instead of appending a string (and abstracted to a seperate function), this more generally refers to any mutable state in the application.
 
 ```c++
 string log = "";
@@ -64,6 +64,15 @@ The complexity has increased even though the seamingly _simplistic_ path has bee
 What if we were to implement the same feature, but with **pure functions**?
 
 ```c++
+pair<bool, string>
+negate(bool x, string log) {
+    return make_pair(!x, log + "not!");
+}
+```
+
+This is one way of implementing the `log` in a purely functional way, but it violates the principle of seperation of concerns. A better way would be to define a new way of composing functions:
+
+```c++
 function<pair<c, string>(a)>
 compose(functon<pair<b, string>(a)> f, function<pair<c, string>(b)> g) {
     return [f,g](a x) {
@@ -72,9 +81,17 @@ compose(functon<pair<b, string>(a)> f, function<pair<c, string>(b)> g) {
         return make_pair(p2.first, p1.second + p2.second);
     };
 }
+```
 
-pair<bool, string>
-negate(bool x) {
-    return compose(!x, "not!");
+Because string concatenation is associative, if we take 3 such functions and compose them, the order in which the logs are concatenated doesn't matter.
+
+What if we were to represent the identity?
+
+```c++
+pair<a, string>
+id(a x) {
+    return make_pair(a, '')
 }
 ```
+
+We have a binary operator that is associative (+) and has a unit (''). This will work for any Monoid, it doesn't have to be just strings. It is quite hard to abstract in C++, but in Haskell the definition would include a Monoid. We want to impose as fewer conditions as possible; the only condition that we have to impose is that it is a Monoid if we want the composition to form a category.
