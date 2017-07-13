@@ -81,6 +81,11 @@ compose(functon<pair<b, string>(a)> f, function<pair<c, string>(b)> g) {
         return make_pair(p2.first, p1.second + p2.second);
     };
 }
+
+pair<bool, string>
+negate(bool x) {
+    return make_pair(!x, "not!");
+}
 ```
 
 Because string concatenation is associative, if we take 3 such functions and compose them, the order in which the logs are concatenated doesn't matter.
@@ -94,4 +99,16 @@ id(a x) {
 }
 ```
 
+## Kleisli Category
+
 We have a binary operator that is associative (+) and has a unit (''). This will work for any Monoid, it doesn't have to be just strings. It is quite hard to abstract in C++, but in Haskell the definition would include a Monoid. We want to impose as fewer conditions as possible; the only condition that we have to impose is that it is a Monoid if we want the composition to form a category.
+
+So we have composition, identity and assocativity. The objects in this category (`a`, `b`, `c`) are types, but arrows in this category are not regular functions. The arrow from `a` to `b` is not a function from `a` to `b`, it is a function from `a` to a pair of `b` and `string`.
+
+```haskell
+a -> (b, String)
+```
+
+An arrow from `a` to `b` is a function that is embellished. We know how to compose these functions and we know what the identity is; we have a category. This category has a name, it's called a **Kleisli Category**. These functions that are embellished are known as **Kleisli arrows**. Kleisli arrows can be defined for a lot of embellishments, not just this example paired with a string.
+
+This is a view of something called a **Monad**. These arrows are composable because this embellishment is a **Monad**.
