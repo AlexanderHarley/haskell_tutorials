@@ -1,8 +1,11 @@
 {-# LANGUAGE DeriveGeneric     #-}
 {-# LANGUAGE OverloadedStrings #-}
 
+module Main where
+
 import Web.Spock
 import Web.Spock.Config
+import Lucid
 
 import Data.Aeson   hiding (json)
 import Data.Monoid  ((<>))
@@ -31,8 +34,20 @@ main = do
     spockCfg <- defaultSpockCfg () PCNoDatabase ()
     runSpock 8080 (spock spockCfg app)
 
+helloSpock :: SpockAction database session state ()
+helloSpock = html "Hello, <em>Spock!</em><h1>Hello World!<h1>"
+
+helloSpockHTML :: Html ()
+helloSpockHTML =
+    html_ $ do
+        head_ $ title_ "Hello!"
+        body_ $ do
+            h1_ "Hello!"
+            p_ "Hello, Lucid!"
+
 app :: Api
 app = do
+        get "/" helloSpock
         get "people" $ json [
                 Person { name = "Fry", age = 25 },
                 Person { name = "Bender", age = 4}
