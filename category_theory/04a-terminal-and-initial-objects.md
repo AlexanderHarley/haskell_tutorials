@@ -98,8 +98,22 @@ To satisfy all the axioms of category theory we have to also make sure we can co
 
 So in this case we had to prove all these axioms: We had to come up with a way of composing the arrows, we had to figure out what the unit (or identity) is, and we had to show that it's associative. Once we do that, we can say that we have a `Kleisli` category. And if this is a `Kleisli` category, then the **mapping** of each arrow (such as from `a -> (a, String)` and `b -> (c, String)` etc.), is called a **Monad**. This is one of the many definitions of a **Monad**, but this is a clean definition of a **Monad** for programmers. We will look further at **Monads** later, but it is important to understand this categorical construction.
 
+## Set Theory vs Category of Sets
+
 So we talked about Sets before - There is this **category of Sets** and there is also **Set Theory**, and these are two views which are very useful to have.
 
 One view is that Sets are things which have elements. Using these elements we can define things like a function maps elements to elements, or we can define an empty Set, which has no elements etc. So a lot of these things can be defined in terms of elements.
 
 And then we have this **category of Sets**, where we don't know that Sets contain elements - we can't talk about elements, the only thing we can talk about is these arrows. In **Set Theory** we know that we can have functions between Sets. Everytime we have a function from a Set to another Set, this will be our arrow in our **category of Sets**.
+
+Everytime we have a function between two sets, we have an arrow. If we have just one function between two sets, there will be just one arrow. If there are multiple functions, there will be multiple arrows.
+
+And we also know how to compose functions - the result of one function is the argument to another function. So we can look at Sets and see how these functions compose, forgetting about the elements, and just say that these two functions compose this way.
+
+But the thing is, we have forgotten everything about elements but in Set Theory there is an **Empty Set**. This is a Set that has no elements, but how can we define an **Empty Set** in a category without knowing about elements? The same for a **Singleton Set** and a **Cartesian Product**? We have to redine everything in terms of arrows and their composition.
+
+## Universal Construction
+
+In category theory, we use **Universal Construction** to pick a particular kind of object, arrow, or pattern, and say we used something like this before when looking at theories (**Set Theory** for example), but here is a **Universal Construction** that gives you the same thing.
+
+Since we cannot look inside an object, the only thing we can do is define properties of an object in terms of it's relation to other objects. The relations between these objects are the arrows. Everything must be defined in terms of these arrows.
