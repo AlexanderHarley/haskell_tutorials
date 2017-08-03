@@ -117,3 +117,23 @@ But the thing is, we have forgotten everything about elements but in Set Theory 
 In category theory, we use **Universal Construction** to pick a particular kind of object, arrow, or pattern, and say we used something like this before when looking at theories (**Set Theory** for example), but here is a **Universal Construction** that gives you the same thing.
 
 Since we cannot look inside an object, the only thing we can do is define properties of an object in terms of it's relation to other objects. The relations between these objects are the arrows. Everything must be defined in terms of these arrows.
+
+In general, if we want to identify a specific object with a unique property, we'll have to define it in respect to every other object in the category - the whole _'universe'_ of objects. This is the same as when talking about Epimorphisms and Monomorphisms before, they are also defined in terms of the _'universe'_. We do a very similar thing with **Universal Constructions**.
+
+The general method of **Universal Constructions** can be thought of as being similar to **Google**. The first step is to define a pattern. This pattern is some combination of objects and arrows. It is almost then like _googling_ the category with that pattern - Show me everything in category `Y` with pattern `X` construction, for example.
+
+This can result in many _'hits'_, perhaps infinitely many. So we need some way of ordering or _ranking_ these results, similar to **Google**. Maybe all of them are not comparable (e.g. **Partial Orders**), but you can at least compare some of the objects to say that one is better than the other. This does not guarantee that there will be something at the top of this _ranking_, but if there is then this defines the object that you are looking for.
+
+### A Simple Example of Universal Construction
+
+Lets look at a **Singleton Set**. This is a set that has one element, but we cannot talk about elements, so how does this Set relate to other Sets? We have to look at arrows to and from other Sets.
+
+There is one property of the **Singleton Set** that is interesting - **it has an arrow coming from every other Set**.
+
+```haskell
+a -> ()
+```
+
+From **any Set** (or any Type), there is an arrow from any Set to a **Singleton Set** (or Unit). There is even an arrow from the **Empty Set** (or Void) to the **Singleton Set**. This is a sort of universal property of the Singleton Set.
+
+However, the **category of Sets** is very rich in arrows, and the Singleton Set isn't the only one with this property.
