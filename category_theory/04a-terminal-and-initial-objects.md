@@ -110,7 +110,7 @@ Everytime we have a function between two sets, we have an arrow. If we have just
 
 And we also know how to compose functions - the result of one function is the argument to another function. So we can look at Sets and see how these functions compose, forgetting about the elements, and just say that these two functions compose this way.
 
-But the thing is, we have forgotten everything about elements but in Set Theory there is an **Empty Set**. This is a Set that has no elements, but how can we define an **Empty Set** in a category without knowing about elements? The same for a **Singleton Set** and a **Cartesian Product**? We have to redine everything in terms of arrows and their composition.
+But the thing is, we have forgotten everything about elements but in Set Theory there is an **Empty Set**. This is a Set that has no elements, but how can we define an **Empty Set** in a category without knowing about elements? The same for a **Singleton Set** and a **Cartesian Product**? We have to redefine everything in terms of arrows and their composition.
 
 ## Universal Construction
 
@@ -136,4 +136,18 @@ a -> ()
 
 From **any Set** (or any Type), there is an arrow from any Set to a **Singleton Set** (or Unit). There is even an arrow from the **Empty Set** (or Void) to the **Singleton Set**. This is a sort of universal property of the Singleton Set.
 
-However, the **category of Sets** is very rich in arrows, and the Singleton Set isn't the only one with this property.
+However, the **category of Sets** is very rich in arrows, and the Singleton Set isn't the only one with this property. In the **category of Sets** there are arrows from nearly every Set to every other Set. There is only one case where there is no arrow, and that is a non-empty Set to an **Empty Set** (or Void).
+
+If we were to look at a **Two Element Set** (or Bool), there is an arrow from every other set to it. In fact there is at least 2 arrows from each Set (**True** and **False**), and maybe even more (predicates).
+
+```haskell
+a -> Bool
+```
+
+### Terminal Object
+
+The difference between every other Set (or type) and the **Singleton Set** (or Unit), is that for the **Singleton Set** there is only one arrow from any other object. There is a _unique_ arrow. So by using only arrows, we can define what we mean by a **Singleton Set**. What would we call an object defined this way? It is called a **Terminal Object**.
+
+So if we were to forget about Sets, because we have defined something with only objects and arrows, we can apply this to _any_ category.
+
+_Note: Not every category has a Terminal Object._
