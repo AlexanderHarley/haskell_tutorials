@@ -151,3 +151,17 @@ The difference between every other Set (or type) and the **Singleton Set** (or U
 So if we were to forget about Sets, because we have defined something with only objects and arrows, we can apply this to _any_ category.
 
 _Note: Not every category has a Terminal Object._
+
+A **Terminal Object** in a category is an object which has a unique arrow coming from every other object.
+
+This is actually two parts:
+
+### ∀a . ∃f :: a -> ()
+
+For every object `a` there exists a function (`f`) that goes from `a` to the **Terminal Object**.
+
+### ∀ f :: a -> (), g :: a -> () ⇒ f = g
+
+For any two functions that go to the **Terminal Object**, those functions must be equal to each other.
+
+These two equations are the definition of a **Terminal Object** in any category.
