@@ -144,7 +144,7 @@ If we were to look at a **Two Element Set** (or Bool), there is an arrow from ev
 a -> Bool
 ```
 
-### Terminal Object
+## Terminal Object
 
 The difference between every other Set (or type) and the **Singleton Set** (or Unit), is that for the **Singleton Set** there is only one arrow from any other object. There is a _unique_ arrow. So by using only arrows, we can define what we mean by a **Singleton Set**. What would we call an object defined this way? It is called a **Terminal Object**.
 
@@ -165,3 +165,79 @@ For every object `a` there exists a function (`f`) that goes from `a` to the **T
 For any two functions that go to the **Terminal Object**, those functions must be equal to each other.
 
 These two equations are the definition of a **Terminal Object** in any category.
+
+Lets look at an example in a different category - A thin category, a preorder.
+
+```
+        ≤
+a -------------> x
+
+        ≤
+b -------------> x
+
+        ≤
+c -------------> x
+
+        ≤
+d -------------> x
+```
+
+So in this category, the **Terminal Object** must be greater than or equal to every object in this category, as every arrow to it has the relation of `≤`.
+
+Not every order has a **Terminal Object** - for example, there is no largest **Natural Number**, so there is no **Terminal Object** amoungst **Natural Numbers**.
+
+## Initial Object
+
+Like we have defined a **Singleton Set** with _incoming_ arrows, an **Empty Set** can be defined with _outgoing_ arrows.
+
+```
+       absurd
+a <------------- void
+
+       absurd
+b <------------- void
+
+       absurd
+c <------------- void
+
+       absurd
+d <------------- void
+```
+
+We have reversed the definition for the **Terminal Object**. This obect is called the **Initial Object**. It happens that in Set Theory this corresponds to an **Empty Set**. In Haskell, this corresponds to **Void**.
+
+### ∀a . ∃f :: void -> a
+
+For every object `a` there exists a function (`f`) that goes from the **Initial Object** to the `a`.
+
+### ∀ f :: void -> a, g :: void -> a ⇒ f = g
+
+For any two functions that come from the **Initial Object**, those functions must be equal to each other.
+
+In category theory, if you take any object in a category, you can substitute any complicated path to the **Terminal Object** (for example, `a -> b -> c -> d -> ()`) with a single path which is the composition of these arrows. Because composition is associative it doesn't matter in which order you shrink these arrows, eventually you end up with a single arrow, which is always the same/equivalent arrow.
+
+This is where the uniqueness comes. Any path to a **Terminal Object** can be shrunk to a single unique arrow.
+
+If we were to take **Boolean** as the object instead, there would be _two_ ways of shrinking - some paths would become the **True** path and some paths would become the **False** path (or maybe more than two, if it's a predicate and there are predicates). Whereas with a **Terminal Object**, there is only one path. The same is true with **Initial Object**.
+
+### In category theory there is no equality of objects. There is only an equality of arrows.
+
+If two arrows have the same start and finish you can ask the questin are these two arrows equal or not (they don't have to be equal, but they could be), whereas in general we cannot compare objects for equality.
+
+Instead we can ask - are they **isomorphic**?
+
+The **Terminal Object** is unique up to an **isomorphism**. So if you have two objects that satisfy the condition of being a **Terminal Object**, they are **isomorphic**. An even stronger condition is that there is a unique **isomorphism** between them.
+
+If we have **Two-Element Sets**, let's say **True and False** and **Black and White**. How many **isomorphisms** are there between them? The answer is **two** because you can flip them. You can either say `True is Black` and `False is White`, or you can say `True is White` and `False is Black`.
+
+So suppose we have two **Terminal Objects** - `a` and `b`. So there must be a unique arrow from `a` to `b` and from `b` to `a`.
+
+```
+        f
+a -------------> b
+
+        g
+b -------------> a
+```
+
+So in this instance, there is a unique **isomorphism**, there aren't many, there is just one.
