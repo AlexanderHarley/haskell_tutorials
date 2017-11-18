@@ -164,6 +164,8 @@ For every object `a` there exists a function (`f`) that goes from `a` to the **T
 
 For any two functions that go to the **Terminal Object**, those functions must be equal to each other.
 
+_Note: This is how uniqueness is defined in mathematics - we say, "So what if I have two of these?" - well if we have two of these, they must be equal, meaning there is only one._
+
 These two equations are the definition of a **Terminal Object** in any category.
 
 Lets look at an example in a different category - A thin category, a preorder.
