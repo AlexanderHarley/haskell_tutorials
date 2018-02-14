@@ -224,7 +224,7 @@ If we were to take **Boolean** as the object instead, there would be _two_ ways 
 
 ### In category theory there is no equality of objects. There is only an equality of arrows.
 
-If two arrows have the same start and finish you can ask the questin are these two arrows equal or not (they don't have to be equal, but they could be), whereas in general we cannot compare objects for equality.
+If two arrows have the same start and finish you can ask the question are these two arrows equal or not (they don't have to be equal, but they could be), whereas in general we cannot compare objects for equality.
 
 Instead we can ask - are they **isomorphic**?
 
@@ -243,3 +243,13 @@ b -------------> a
 ```
 
 So in this instance, there is a unique **isomorphism**, there aren't many, there is just one.
+
+**g ∘ f = id a**
+
+**f ∘ g = id b**
+
+This is a definition of an isomorphism. It means `g` is an inverse of `f`. And it's a unique isomorphism as `f` is a unique arrow from `a` to `b` (and inversely, `g` is a unique arrow from `b` to `a`) - there aren't any other arrows (other than the identity arrows).
+
+Going back to **Universal Construction**, if we were to define a pattern as a single object, it would return every object in the category, because every object is an example of this pattern. This is because we didn't specify anything else other than it is an object.
+
+But we have the ranking - so we can say if we get two objects back from our search, let's say `a` and `b`, then we can say `a` is better than `b` if there is a _unique_ arrow from `b` to `a`. In this way, we can use **Universal Construction** to find a **Terminal Object**. The difference between a **Terminal Object** and an **Initial Object** in this example is just the ranking. For example, we could say `a` is _better_ than `b` if there's a unique arrow from `a` to `b`, which would find an **Initial Object**.
