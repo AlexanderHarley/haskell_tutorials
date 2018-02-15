@@ -46,4 +46,4 @@ The canonical definition of a  a **union** (also called a **sum type**) is `Eith
 data Either a b = Left a | Right b
 ```
 
-Similarly to how we have two **projections** in the **Product** which in Haskell are the equivalent of `fst` and `snd`, we have two **injections** in the **Coproduct** which are `Left` and `Right`.
+Similarly to how we have two **projections** in the **Product** which in Haskell are the equivalent of `fst` and `snd`, we have two **injections** in the **Coproduct** which are the equivalent to the data constructors `Left` and `Right`.
