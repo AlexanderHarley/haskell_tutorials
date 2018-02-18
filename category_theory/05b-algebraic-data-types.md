@@ -1,5 +1,7 @@
 # Algebraic Data Types [5.2]
 
+## Monoid in respect to Product
+
 A **Monoid** would be something that has **multiplication**, that is **associative** and has a **unit**. But now we are talking about types - is there something like an algebra for types? Is the **Product** in types behaving like **multiplication**?
 
 It's not true of all **Monoids**, but the **Product** of numbers is usually symmetric.
@@ -13,7 +15,7 @@ swap :: (a, b) -> (b, a)
 swap p = (snd p, fst p)
 ```
 
-So it is not really symmetric, but it _is_ symmetric up to **isomorphism**. A **Monoid** doesn't have to be symmetric it's just an interesting thing.
+So it is not really symmetric, but it _is_ symmetric _up to_ **isomorphism**. A **Monoid** doesn't have to be symmetric it's just an interesting thing.
 
 The next part is that a **Monoid Product** should be **associative**, so is this example associative?
 
@@ -55,4 +57,27 @@ With the idea of multiplication, we could say that these two are similarly equiv
 - `(a, ()) ~ a`
 - `a * 1 = a`
 
-Where the unit `()` is represented as `1`.
+Where the unit `()` is represented as `1`, and `=` meaning `up to isomorphism`. Similarly we could say the same for the standard **Monoid**:
+
+- `((a, b), c) ~ (a, (b, c))`
+- `(a * b) * c = a * (b * c)`
+
+The fact that it's **associative** _up to isomorphism_ is very important as it means we can remove some of the parenthesis and say:
+
+- `(a, b, c)`
+
+## Coproduct
+
+Similarly the **Coproduct** (or **sum type**) is symmetric _up to isomorphism_:
+
+```haskell
+Either a b ~ Either b a
+```
+
+`Either a b` is **isomorphic** to `Either b a`. The **isomorphism** would pattern match on `Left` and `Right` and return `Right` and `Left`.
+
+Similarly it's also **associative** _up to isomorphism_. If you wanted to associate a bunch of `Either` you could write a data structure such as:
+
+```haskell
+data Triple a b c = Left a | Right c | Middle b
+```
