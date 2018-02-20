@@ -66,7 +66,7 @@ The fact that it's **associative** _up to isomorphism_ is very important as it m
 
 - `(a, b, c)`
 
-## Coproduct
+## Monoid in respect to Coproduct
 
 Similarly the **Coproduct** (or **sum type**) is symmetric _up to isomorphism_:
 
@@ -80,4 +80,49 @@ Similarly it's also **associative** _up to isomorphism_. If you wanted to associ
 
 ```haskell
 data Triple a b c = Left a | Right c | Middle b
+```
+
+You can do things like this because the **sum type** is **associative**, as _up to isomorphism_ it doesn't matter how things are ordered.
+
+Now does the **sum type** also have a **Unit**/**Identity**? The answer is **Yes**:
+
+```haskell
+Either a Void ~ a
+```
+
+`Either a Void` is **isomorphic** to `a`. Because there are no elements of `Void`, you can never construct a `Right`. So effectively `Either a Void` give us the right identity and similarly `Either Void a` gives us the left identity.
+
+If `Either` is like a `+` then `Void` is like `0`:
+
+- `Either a Void ~ a`
+- `a + 0 = a`
+
+So the **sum type** is also a **Monoid**.
+
+## Combining the two
+
+So we have these two **Monoids**, with the **Product** (or **Pair**) representing the multiplication `*` in our algebra, and the **Coproduct** (or **sum type**) representing the addition `+`.
+
+```haskell
+-- Product
+(a, ()) ~ a
+a * 1 = a
+
+-- Coproduct
+Either a Void ~ a
+a + 0 = a
+```
+
+So if we have `a + 0 = a`, in algebra `a * 0 = 0` is also true, as anything multiplied by 0 equals 0. Is this true of our example? If `0` is `Void` and `*` represents a **Product** (or **pair**):
+
+```haskell
+(a, Void) ~ Void
+```
+
+Since we can never call this function (as we can never generate a `Void`), the function is the equivalent of `Void`. Therefore this isomorphism is true.
+
+Another thing we know from algebra is the **Distributive Law**:
+
+```
+a * (b + c) = a * b + a * c
 ```
