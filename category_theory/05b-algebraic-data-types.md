@@ -119,10 +119,22 @@ So if we have `a + 0 = a`, in algebra `a * 0 = 0` is also true, as anything mult
 (a, Void) ~ Void
 ```
 
-Since we can never call this function (as we can never generate a `Void`), the function is the equivalent of `Void`. Therefore this isomorphism is true.
+Since we can never call this function (as we can never generate a `Void`), the function is uninhabited which is the equivalent of `Void`. Therefore this isomorphism is true.
 
 Another thing we know from algebra is the **Distributive Law**:
 
 ```
 a * (b + c) = a * b + a * c
 ```
+
+So is this also true for Algebraic Data Types? **Yes** it is, _up to isomorphism_:
+
+```haskell
+(a, Either b c) ~ Either (a, b) (a, c)
+```
+
+When we have a structure that contains **multiplication** and **addition**, it is normally called a **Ring**, except that a true **Ring** also has an inverse of **addition**, and here we don't have inverses. For example, we have **addition**, but we don't have **subtraction**. What is the inverse of **Integer** for example as a type? Similarly there is no inverse for **Product**.
+
+A **Ring** that has no inverse is called a **Rig** or a **Semiring**.
+
+_Note: Rig is like a mathematical pun - "Ring without the `n`"_
