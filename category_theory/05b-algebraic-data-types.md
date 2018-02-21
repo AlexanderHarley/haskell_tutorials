@@ -138,3 +138,81 @@ When we have a structure that contains **multiplication** and **addition**, it i
 A **Ring** that has no inverse is called a **Rig** or a **Semiring**.
 
 _Note: Rig is like a mathematical pun - "Ring without the `n`"_
+
+Here are some more examples:
+
+```haskell
+2 = 1 + 1
+Boolean = Either Left Right
+
+1 + a
+Maybe a
+```
+
+`1 + a` is equivalent to `Maybe a` as the type signature for `Maybe` is:
+
+```haskell
+data Maybe a = Nothing | Just a
+```
+
+Which can also be thought of as:
+
+```haskell
+Either () a
+```
+
+In this case `Nothing` would be our **Unit**, as it can be constructed from nothing (literally).
+
+## Equations
+
+Algebra really comes into it's own when it comes to solving equations.
+
+```haskell
+l(a) = 1 + a * l(a)
+```
+
+Let's start by putting some of the differential equation on the left side and then solving the equation:
+
+```haskell
+l(a) - a * l(a) = 1
+l(a)(1 - a) = 1
+l(a) = 1 / (1 - a)
+```
+
+Now let's convert this to types:
+
+```haskell
+l(a) = 1 + a * l(a)
+data List a = Nil | Cons a (List a)
+```
+
+The `+` is represented as a **sum** constructor - `x | y`, and the `*` is being represented as a **Product** constructor - `Cons x y`.
+
+Now unfortunately as this is a **Semiring** we don't have division or subtraction, so let's do a little _slight of hand_.
+
+What we are actually working with is the sum of a geometric sequence.
+
+```
+  ∞
+  ∑    aⁿ
+n = 0
+```
+
+Which is essentially equivalent to:
+
+```
+1 + a + a² + a³ + ...
+```
+
+`1` corresponds to an empty list, `a` corresponds to a singleton element, `a²` corresponds to a pair of elements and so on. We have defined all possible lists with this equation.
+
+However the equation could also be solved with substitution:
+
+```haskell
+l(a) = 1 + a * l(a)
+l(a) = 1 + a * (1 + a * l(a))
+l(a) = 1 + a + a² (1 + a * l(a))
+l(a) = 1 + a + a² + a³ (1 + a * l(a))
+```
+
+We can continue expanding this through substitution. This can be formalised in a fixed point combinator.
